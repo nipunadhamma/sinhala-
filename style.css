@@ -45,3 +45,37 @@ border:1px solid #999;
 resize:none;
 
 }
+.editor{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+}
+
+#suggestBox{
+
+position:absolute;
+top:10px;
+left:10px;
+
+background:white;
+border:1px solid #ccc;
+border-radius:6px;
+
+width:200px;
+
+display:none;
+
+z-index:999;
+
+font-size:18px;
+
+}
+
+.s-item{
+    padding:8px;
+    cursor:pointer;
+}
+
+.s-item:hover{
+    background:#eee;
+}
