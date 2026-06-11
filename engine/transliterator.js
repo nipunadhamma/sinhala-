@@ -3,13 +3,20 @@ import { MODIFIERS } from "./modifiers.js";
 import { VOWELS } from "./vowels.js";
 import { DICTIONARY } from "./dictionary.js";
 import { JOINERS } from "./joiners.js";
+import { normalize } from "./normalizer.js";
 
 export function transliterate(text) {
 
     text = text.toLowerCase();
 
     // =========================
-    // 🔥 STEP 1: JOINER ENGINE (NEW)
+    // 🔥 STEP 1: NORMALIZE INPUT
+    // =========================
+
+    text = normalize(text);
+
+    // =========================
+    // 🔥 STEP 2: JOINERS ENGINE
     // =========================
 
     for (let i = 0; i < JOINERS.length; i++) {
@@ -20,7 +27,7 @@ export function transliterate(text) {
     }
 
     // =========================
-    // 🔥 STEP 2: DICTIONARY
+    // 🔥 STEP 3: DICTIONARY ENGINE
     // =========================
 
     let words = text.split(" ");
@@ -30,13 +37,12 @@ export function transliterate(text) {
         if (DICTIONARY[words[i]]) {
             words[i] = DICTIONARY[words[i]];
         }
-
     }
 
     text = words.join(" ");
 
     // =========================
-    // 🔥 STEP 3: NORMAL ENGINE
+    // 🔥 STEP 4: MAIN ENGINE
     // =========================
 
     let result = "";
@@ -50,7 +56,7 @@ export function transliterate(text) {
         let duo = text.substring(i, i + 2);
         let one = text.substring(i, i + 1);
 
-        // consonant + vowel combo
+        // consonant + vowel
         for (let cKey in CONSONANTS) {
             for (let vKey in MODIFIERS) {
 
