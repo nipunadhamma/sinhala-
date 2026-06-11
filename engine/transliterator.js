@@ -2,14 +2,27 @@ import { CONSONANTS } from "./consonants.js";
 import { MODIFIERS } from "./modifiers.js";
 import { VOWELS } from "./vowels.js";
 import { DICTIONARY } from "./dictionary.js";
+import { JOINERS } from "./joiners.js";
 
 export function transliterate(text) {
 
     text = text.toLowerCase();
 
     // =========================
-    // 🔥 STEP 1: WORD FIX PASS
+    // 🔥 STEP 1: JOINER ENGINE (NEW)
     // =========================
+
+    for (let i = 0; i < JOINERS.length; i++) {
+
+        let [eng, sin] = JOINERS[i];
+
+        text = text.split(eng).join(sin);
+    }
+
+    // =========================
+    // 🔥 STEP 2: DICTIONARY
+    // =========================
+
     let words = text.split(" ");
 
     for (let i = 0; i < words.length; i++) {
@@ -23,7 +36,7 @@ export function transliterate(text) {
     text = words.join(" ");
 
     // =========================
-    // 🔥 STEP 2: ENGINE
+    // 🔥 STEP 3: NORMAL ENGINE
     // =========================
 
     let result = "";
@@ -37,7 +50,7 @@ export function transliterate(text) {
         let duo = text.substring(i, i + 2);
         let one = text.substring(i, i + 1);
 
-        // CONSONANT + VOWEL
+        // consonant + vowel combo
         for (let cKey in CONSONANTS) {
             for (let vKey in MODIFIERS) {
 
@@ -56,7 +69,7 @@ export function transliterate(text) {
 
         if (matched) continue;
 
-        // consonant
+        // consonants
         if (CONSONANTS[tri]) {
             result += CONSONANTS[tri];
             i += 3;
@@ -75,7 +88,7 @@ export function transliterate(text) {
             continue;
         }
 
-        // vowel
+        // vowels
         if (VOWELS[tri]) {
             result += VOWELS[tri];
             i += 3;
@@ -96,7 +109,6 @@ export function transliterate(text) {
 
         result += text[i];
         i++;
-
     }
 
     return result;
