@@ -16,7 +16,8 @@ export const DICTIONARY = {
 
     "namo": "නමෝ",
     "buddha": "බුද්ධ"
-
+};
+export const DICTIONARY = {
 
     "amma": "අම්මා",
     "anna": "අන්න",
@@ -36,6 +37,10 @@ export const DICTIONARY = {
     "sinhala": "සිංහල",
     "buddha": "බුද්ධ",
 
+    "dan": "දැන්",
+    "thama": "තම"
+
+};
     "dan": "දැන්",
     "thama": "තම"
 
