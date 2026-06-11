@@ -1,8 +1,18 @@
-import { transliterate } from "./engine/transliterator.js";
+import { process } from "./engine/imeCore.js";
 
-const input = document.getElementById("roman");
-const output = document.getElementById("sinhala");
+const editor = document.getElementById("editor");
 
-input.addEventListener("input", () => {
-    output.value = transliterate(input.value);
+let lastValue = "";
+
+editor.addEventListener("input", () => {
+
+let newValue = editor.value;
+
+// prevent full rewrite flicker
+let converted = process(newValue);
+
+editor.value = converted;
+
+lastValue = converted;
+
 });
