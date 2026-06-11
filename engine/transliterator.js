@@ -1,10 +1,30 @@
 import { CONSONANTS } from "./consonants.js";
 import { MODIFIERS } from "./modifiers.js";
 import { VOWELS } from "./vowels.js";
+import { DICTIONARY } from "./dictionary.js";
 
 export function transliterate(text) {
 
     text = text.toLowerCase();
+
+    // =========================
+    // 🔥 STEP 1: WORD FIX PASS
+    // =========================
+    let words = text.split(" ");
+
+    for (let i = 0; i < words.length; i++) {
+
+        if (DICTIONARY[words[i]]) {
+            words[i] = DICTIONARY[words[i]];
+        }
+
+    }
+
+    text = words.join(" ");
+
+    // =========================
+    // 🔥 STEP 2: ENGINE
+    // =========================
 
     let result = "";
     let i = 0;
@@ -13,43 +33,30 @@ export function transliterate(text) {
 
         let matched = false;
 
-        // 🔥 STEP 1: Try 3-letter combos (gh, kh, th, etc.)
         let tri = text.substring(i, i + 3);
         let duo = text.substring(i, i + 2);
         let one = text.substring(i, i + 1);
 
-        // =========================
-        // 1. CONSONANT + VOWEL combos (ka, ki, ko)
-        // =========================
+        // CONSONANT + VOWEL
+        for (let cKey in CONSONANTS) {
+            for (let vKey in MODIFIERS) {
 
-        for (let len = 3; len >= 1; len--) {
+                let combo = cKey + vKey;
 
-            let chunk = text.substring(i, i + len);
+                if (text.substring(i, i + combo.length) === combo) {
 
-            // CASE: consonant + vowel (ka, ki, ko)
-            for (let cKey in CONSONANTS) {
-                for (let vKey in MODIFIERS) {
-
-                    if (chunk === cKey + vKey) {
-
-                        result += CONSONANTS[cKey] + MODIFIERS[vKey];
-                        i += len;
-                        matched = true;
-                        break;
-                    }
+                    result += CONSONANTS[cKey] + MODIFIERS[vKey];
+                    i += combo.length;
+                    matched = true;
+                    break;
                 }
-                if (matched) break;
             }
-
             if (matched) break;
         }
 
         if (matched) continue;
 
-        // =========================
-        // 2. PURE CONSONANT (k, m, t)
-        // =========================
-
+        // consonant
         if (CONSONANTS[tri]) {
             result += CONSONANTS[tri];
             i += 3;
@@ -68,10 +75,7 @@ export function transliterate(text) {
             continue;
         }
 
-        // =========================
-        // 3. VOWELS ONLY (a, i, u)
-        // =========================
-
+        // vowel
         if (VOWELS[tri]) {
             result += VOWELS[tri];
             i += 3;
@@ -90,12 +94,9 @@ export function transliterate(text) {
             continue;
         }
 
-        // =========================
-        // 4. DEFAULT (space, symbols)
-        // =========================
-
         result += text[i];
         i++;
+
     }
 
     return result;
