@@ -1,0 +1,20 @@
+.floatingPanel {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 220px;
+    background: #2b2b2b;
+    color: white;
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.panelHeader {
+    background: #1a1a1a;
+    padding: 6px;
+    cursor: move;
+    font-weight: bold;
+    margin-bottom: 8px;
+}

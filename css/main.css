@@ -1,0 +1,434 @@
+/* =========================
+   GLOBAL
+========================= */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #e9ecef;
+}
+
+/* =========================
+   TOP MENU (CANVA STYLE)
+========================= */
+#topMenu {
+  display: flex;
+  background: #111;
+  color: white;
+  padding: 6px 10px;
+  align-items: center;
+}
+
+.menu-item {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+  padding-bottom: 10px;
+}
+
+.menu-btn {
+  background: none;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.menu-btn:hover {
+  background: #333;
+}
+
+/* dropdown */
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #222;
+  min-width: 170px;
+  border-radius: 8px;
+  padding: 6px 0;
+  z-index: 9999;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.menu-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown button,
+.dropdown label {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dropdown button:hover,
+.dropdown label:hover {
+  background: #444;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+#main {
+  display: flex;
+  height: calc(100vh - 45px);
+}
+
+/* =========================
+   LEFT TOOLBAR (CANVA STYLE)
+========================= */
+#sidebar {
+  width: 90px;
+  background: #534e4e;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* TOOL BUTTONS */
+#sidebar button {
+  background: #2c2c2c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 14px;
+}
+
+/* hover effect */
+#sidebar button:hover {
+  background: #3a3a3a;
+  transform: scale(1.03);
+}
+
+/* active click effect */
+#sidebar button:active {
+  transform: scale(0.97);
+}
+
+/* special primary tool buttons */
+#sidebar button.primary {
+  background: #0078ff;
+}
+
+#sidebar button.primary:hover {
+  background: #0064d6;
+}
+
+/* =========================
+   CANVAS AREA
+========================= */
+#canvasArea {
+  flex: 1;
+  background: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;  
+  padding: 50px;
+}
+
+/* =========================
+   RIGHT PROPERTIES PANEL
+========================= */
+#properties {
+  width: 220px;
+  background: #f5f5f5;
+  padding: 10px;
+}
+
+/* inputs */
+#properties input,
+#properties select {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 6px;
+}
+
+
+
+/* =========================
+   POPUP (EXPORT / BRUSH)
+========================= */
+.popup {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  background: #222;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+  z-index: 9999;
+  width: 200px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.hidden {
+  display: none;
+}
+
+/* popup buttons */
+.popup button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 6px;
+  background: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background: #555;
+}
+#fontFamily{
+
+width:100%;
+
+padding:8px;
+
+margin-top:5px;
+
+margin-bottom:10px;
+
+border-radius:6px;
+
+border:1px solid #bbb;
+
+font-size:14px;
+
+}
+#fontFamily option {
+    padding: 8px;
+    font-size: 14px;
+}
+
+/* dropdown nicer look */
+#fontFamily {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+#fontSearch {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#fontFavorites {
+    margin: 5px 0;
+    font-size: 12px;
+    color: #333;
+}
+
+.favorite-font {
+    display: inline-block;
+    padding: 3px 6px;
+    margin: 2px;
+    background: #eee;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#fontPanel {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.font-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+    margin: 4px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #eee;
+}
+
+.font-item:hover {
+    background: #f0f0f0;
+}
+
+.font-name {
+    font-weight: bold;
+}
+
+.font-preview {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+/* =========================
+   RIGHT PANEL WRAPPER
+========================= */
+
+#rightPanel{
+  width:260px;
+  background:#f5f5f5;
+  display:flex;
+  flex-direction:column;
+  border-left:1px solid #ddd;
+  overflow:hidden;
+}
+
+/* panels */
+.panel{
+  padding:12px;
+  overflow-y:auto;
+}
+
+/* hidden system */
+.hidden{
+  display:none;
+}
+
+/* section title */
+.panel h3{
+  margin:5px 0 10px 0;
+  font-size:14px;
+  color:#333;
+}
+
+/* inputs */
+.panel input,
+.panel select,
+.panel button{
+  width:90%;
+  margin-bottom:5px;
+  padding:6px;
+  border-radius:6px;
+  border:1px solid #ccc;
+  font-size:10px;
+}
+
+/* buttons */
+.panel button{
+  background:#2d2d2d;
+  color:white;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.panel button:hover{
+  background:#444;
+}
+
+/* =========================
+   PRO LAYER ITEM (FIXED)
+========================= */
+
+.layer-item{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+
+  padding:8px;
+  margin:4px 0;
+
+  background:#2b2b2b;
+  color:white;
+  border-radius:6px;
+
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.layer-item:hover{
+  background:#3a3a3a;
+}
+
+/* layer name */
+.layer-item span{
+  font-size:13px;
+  font-weight:600;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+/* opacity slider */
+.layer-item input[type="range"]{
+  width:100%;
+  height:3px;
+  cursor:pointer;
+}
+
+/* button row */
+.layer-item div{
+  display:flex;
+  justify-content:flex-end;
+  gap:6px;
+}
+
+/* buttons */
+.layer-item button{
+  background:#444;
+  border:none;
+  color:white;
+  padding:4px 6px;
+  border-radius:4px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.layer-item button:hover{
+  background:#666;
+}
+
+#contextMenu button {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
+}
+
+#contextMenu button:hover {
+    background: #444;
+}
+
+#contextMenu hr {
+    border: 0;
+    border-top: 1px solid #555;
+    margin: 5px 0;
+}
+
+.hidden {
+    display: none;
+}
+.layer-item.active{
+    border:2px solid #4da3ff;
+    background:#3a3a3a;
+}
+
+.layer-controls {
+    display: flex;
+    gap: 5px;
+}
+.layer-controls button {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+
+

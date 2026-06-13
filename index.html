@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Canva Mini Font PRO v1.0</title>
+
+<link rel="stylesheet" href="css/main.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+<!-- ================= TOP MENU ================= -->
+<div id="topMenu">
+
+  <div class="menu-item">
+    <button class="menu-btn">File ▾</button>
+    <div class="dropdown">
+
+      <button onclick="openNewProject()">New Project</button>
+
+      <label for="imgUpload">Open Image</label>
+      <input type="file" id="imgUpload" accept="image/*" hidden>
+
+      <hr>
+
+      <button onclick="openExportPopup()">Export</button>
+
+      <hr>
+
+      <button onclick="exportJSON()">Save Project</button>
+
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button class="menu-btn">Edit ▾</button>
+    <div class="dropdown">
+      <button onclick="undo()">Undo</button>
+      <button onclick="redo()">Redo</button>
+      <button onclick="deleteObject()">Delete</button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button class="menu-btn">Add ▾</button>
+    <div class="dropdown">
+      <button onclick="addText()">Text</button>
+      <button onclick="addRect()">Rectangle</button>
+      <button onclick="addCircle()">Circle</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= MAIN ================= -->
+<div id="main">
+
+  <!-- LEFT SIDEBAR -->
+  <div id="sidebar">
+
+    <h3>Tools</h3>
+
+    <button onclick="addText()">Text</button>
+    <button onclick="addRect()">Rectangle</button>
+    <button onclick="addCircle()">Circle</button>
+
+    <button onclick="toggleBrushPopup()">Brush</button>
+
+    <div id="brushPopup" class="popup hidden">
+
+      <h3>Brush Tools</h3>
+
+      <button onclick="enableBrush()">Brush</button>
+      <button onclick="enableEraser()">Eraser</button>
+      <button onclick="disableBrush()">Select</button>
+
+      <br><br>
+
+      <label>Color</label>
+      <input type="color" onchange="setBrushColor(this.value)">
+
+      <br><br>
+
+      <label>Size</label>
+      <input type="range" min="1" max="50" onchange="setBrushSize(this.value)">
+
+      <br><br>
+
+      <button onclick="closeBrushPopup()">Close</button>
+
+    </div>
+
+ <!-- ================= GRADIENT ================= -->
+
+    <button onclick="openGradientModal()">Gradient</button>
+
+    
+
+  </div>
+
+  <!-- ================= CANVAS ================= -->
+  <div id="canvasArea">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <!-- ================= RIGHT PANEL ================= -->
+<div id="rightPanel">
+
+  <!-- ================= PROPERTIES PANEL ================= -->
+  <div id="properties" class="panel hidden">
+
+    <h3>Properties</h3>
+
+    <!-- TEXT CONTROLS -->
+    <label>Text Color</label>
+    <input type="color" id="colorPicker"
+      oninput="changeTextColor(this.value)">
+
+    <label>Font Size</label>
+    <input type="number" id="fontSize"
+      oninput="changeFontSize(this.value)">
+
+    <label>Font Family</label>
+    <select id="fontFamily"
+      onchange="changeFontFamily(this.value)">
+    </select>
+
+    <button onclick="applySinhalaFont()">Sinhala Font</button>
+
+    <hr>
+
+    <!-- ================= TEXT EFFECTS ================= -->
+    <h4>Text Effects</h4>
+
+    <!-- SHADOW -->
+    <label>Shadow Color</label>
+    <input type="color" id="shadowColor"
+      oninput="applyShadowLive()">
+
+    <label>Shadow Blur</label>
+    <input type="range" id="shadowBlur"
+      min="0" max="50" value="10"
+      oninput="applyShadowLive()">
+
+    <label>Shadow X</label>
+    <input type="range" id="shadowX"
+      min="-50" max="50" value="5"
+      oninput="applyShadowLive()">
+
+    <label>Shadow Y</label>
+    <input type="range" id="shadowY"
+      min="-50" max="50" value="5"
+      oninput="applyShadowLive()">
+
+    <button onclick="applyShadowLive()">Apply Shadow</button>
+
+    <hr>
+
+    <!-- OUTLINE -->
+    <label>Outline Color</label>
+    <input type="color" id="outlineColor"
+      oninput="applyOutlineLive()">
+
+    <label>Outline Size</label>
+<input type="range" id="outlineSize" 
+       min="0" max="20" step="0.1" value="0.5" 
+       oninput="applyOutlineLive()">
+<span id="outlineValueDisplay">0.5</span>
+
+    <button onclick="applyOutlineLive()">Apply Outline</button>
+
+    <button onclick="removeTextOutline()">Remove Outline</button>
+
+    <hr>
+
+    <!-- EMBOSS -->
+    <button onclick="setEmbossEffect('#000')">Emboss Effect</button>
+
+    <button onclick="clearTextEffects()">Clear All Effects</button>
+
+    <hr>
+
+    <!-- BACKGROUND -->
+    <label>Background Color</label>
+    <input type="color"
+      onchange="setBackgroundColor(this.value)">
+
+    <hr>
+
+    <!-- FONT IMPORT -->
+    <label>Import Font</label>
+    <input type="file" id="fontUpload" accept=".ttf,.otf" hidden>
+
+    <button onclick="document.getElementById('fontUpload').click()">
+      Upload Font
+    </button>
+
+  </div>
+
+  <!-- ================= LAYERS PANEL ================= -->
+  <div id="layers" class="panel">
+  <h3>Layers</h3>
+         <hr>
+
+    <!-- BACKGROUND -->
+    <label>Background Color</label>
+    <input type="color"
+      onchange="setBackgroundColor(this.value)">
+      <hr>
+    
+    <div class="layer-controls" style="margin-bottom: 10px;">
+        <button onclick="groupSelected()" style="cursor:pointer;">Group</button>
+        <button onclick="ungroupSelected()" style="cursor:pointer;">Ungroup</button>
+    </div>
+
+    <div id="layerList"></div>
+
+  </div>
+
+  <!-- ================= NEW PROJECT POPUP ================= -->
+
+  <div id="newProjectPopup" class="popup hidden">
+
+  <h3>New Project</h3>
+
+  <label>Width</label>
+  <input type="number" id="projWidth" value="900">
+
+  <label>Height</label>
+  <input type="number" id="projHeight" value="500">
+
+  <br><br>
+
+  <h4>Templates</h4>
+
+  <button onclick="setTemplate(1080,1080)">Instagram Post</button>
+  <button onclick="setTemplate(1280,720)">YouTube Thumbnail</button>
+  <button onclick="setTemplate(1080,1920)">Story</button>
+  <button onclick="setTemplate(595,420)">A5 L C</button>
+  <br><br>
+
+  <button onclick="createNewProject()">Create</button>
+  <button onclick="closeNewProject()">Cancel</button>
+
+</div>
+
+<!-- ================= EXPORT POPUP ================= -->
+<!-- ================= EXPORT POPUP ================= -->
+
+<div id="exportPopup" class="popup hidden">
+
+<h3>Export Design</h3>
+
+<label>File Type</label>
+
+<select id="exportType">
+
+<option value="png">PNG</option>
+<option value="jpg">JPG</option>
+<option value="webp">WEBP</option>
+<option value="pdf">PDF</option>
+
+</select>
+
+<br><br>
+
+<label>Quality</label>
+
+<select id="exportScale">
+
+<option value="1">1x</option>
+<option value="2" selected>2x</option>
+<option value="3">3x</option>
+<option value="4">4x</option>
+
+</select>
+
+<br><br>
+
+<label>
+
+<input type="checkbox" id="transparentBG">
+
+Transparent Background
+
+</label>
+
+<br><br>
+
+<button onclick="startExport()">Export</button>
+
+<button onclick="closeExportPopup()">Cancel</button>
+
+</div>
+
+
+
+
+<!-- ================= RIGHT CLIK POPUP ================= -->
+
+  <div id="layerContextMenu" class="layer-context hidden">
+    <button onclick="ctxRename()">✏ Rename</button>
+    <button onclick="ctxDuplicate()">📄 Duplicate</button>
+    <button onclick="ctxToggleLock()">🔒 Lock / Unlock</button>
+    <button onclick="ctxToggleVisible()">👁 Hide / Show</button>
+    <hr>
+    <button onclick="ctxBringFront()">⬆ Bring Front</button>
+    <button onclick="ctxSendBack">⬇ Send Back</button>
+    <hr>
+    <button onclick="ctxDelete()">🗑 Delete</button>
+</div>
+
+<!-- ================= GRADIENT ================= -->
+
+  <div id="gradientEditor" class="panel hidden">
+    <h3>Gradient Editor</h3>
+    
+    <label>Color 1 (Start)</label>
+    <input type="color" id="gradColor1" value="#ff0000">
+    
+    <label>Color 2 (End)</label>
+    <input type="color" id="gradColor2" value="#0000ff">
+    
+    <br>
+    <button onclick="applyGradient()">Apply Gradient</button>
+    
+    <button onclick="applyFadeEffect()">Apply Fade Effect</button>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="js/helpers.js"></script>
+<script src="js/canvas.js"></script>
+
+<script src="js/background.js"></script>
+
+<script src="js/layers.js"></script>
+<script src="js/project.js"></script>
+  <script src="js/ui.js"></script>
+
+<script src="js/text.js"></script>
+<script src="js/fonts.js"></script>
+<script src="js/shapes.js"></script>
+<script src="js/images.js"></script>
+<script src="js/export.js"></script>
+
+<script src="js/contextMenu.js"></script>
+
+<script src="js/shortcuts.js"></script>
+
+<script src="js/dragdrop.js"></script>
+<script src="js/brush.js"></script>
+<script src="js/gradients.js"></script>
+
+<script src="js/init.js"></script>
+
+</body>
+</html>

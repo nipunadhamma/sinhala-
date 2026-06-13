@@ -1,0 +1,201 @@
+නියමයි. 👍 මේ පාර අපි **Photoshop / Photopea level** එකටම යමු.
+
+**එක ඉල්ලීමක් විතරයි.**
+අපි මේ පාර **එක පාර ලොකු code ගොඩක් ලියන්නේ නැහැ.** මුලින්ම architecture එක හදනවා. එතකොට පස්සේ කිසිම bug එකක් එන්නේ නැහැ.
+
+---
+
+# 🎨 PRO Gradient System
+
+අපි හදන Gradient Tool එකේ features:
+
+### 🟢 Step 1
+
+* ✅ Linear Gradient
+* ✅ Radial Gradient
+* ✅ Color 1
+* ✅ Color 2
+* ✅ Live Preview
+
+---
+
+### 🟢 Step 2
+
+* ✅ Angle (0°–360°)
+* ✅ Reverse
+* ✅ Gradient Opacity
+
+---
+
+### 🟢 Step 3
+
+* ✅ Unlimited Color Stops
+* ✅ Add Stop
+* ✅ Delete Stop
+* ✅ Drag Stops
+
+---
+
+### 🟢 Step 4
+
+* ✅ Gradient Presets
+* ✅ Save Preset
+* ✅ Load Preset
+
+---
+
+### 🟢 Step 5
+
+* ✅ Gradient on Text
+* ✅ Gradient on Shape
+* ✅ Gradient on Image Overlay
+
+---
+
+# 📁 Folder Structure
+
+```
+js/
+
+core/
+
+tools/
+    gradient.js
+
+ui/
+    gradient-panel.js
+
+effects/
+```
+
+---
+
+# HTML
+
+Gradient panel එක වෙනම floating panel එකක්.
+
+```
+🎨 Gradient
+
+Gradient Type
+○ Linear
+○ Radial
+
+Angle
+─────────────
+
+Color Stops
+
+● Red
+
+● Blue
+
++ Add Stop
+
+Reverse
+
+Apply
+```
+
+---
+
+# CSS
+
+ඒක Photoshop එකේ Gradient Editor එක වගේ draggable panel එකක් වෙනවා.
+
+---
+
+# JS Files
+
+අපි මේවා විතරක් භාවිතා කරනවා.
+
+```
+gradient.js
+```
+
+↓
+
+Gradient engine
+
+```
+gradient-panel.js
+```
+
+↓
+
+UI controls
+
+---
+
+# මේ පාර ලොකු වෙනසක්
+
+අපි
+
+```javascript
+applyGradient()
+```
+
+කියලා function එකක් විතරක් ලියන්නේ නැහැ.
+
+අපි class එකක් හදනවා.
+
+```javascript
+GradientEngine
+```
+
+එතකොට project එකේ ඕනම තැනක
+
+```javascript
+GradientEngine.apply()
+```
+
+වගේ භාවිතා කරන්න පුළුවන්.
+
+---
+
+# 🎯 අවසාන Result එක
+
+අපේ editor එකේ Gradient Tool එක මේ වගේ වෙයි.
+
+```
+┌──────────────────────────────┐
+│ 🎨 Gradient                  │
+├──────────────────────────────┤
+│ Type                         │
+│ (•) Linear                   │
+│ ( ) Radial                   │
+├──────────────────────────────┤
+│ Angle                        │
+│ 180° ───────────────          │
+├──────────────────────────────┤
+│ Color Stops                  │
+│ ●────────●────────●           │
+│   Red     Blue    White       │
+├──────────────────────────────┤
+│ Reverse                      │
+│ □                            │
+├──────────────────────────────┤
+│ Live Preview                 │
+├──────────────────────────────┤
+│ Apply                        │
+└──────────────────────────────┘
+```
+
+---
+
+## 🚀 මගේ යෝජනාව
+
+මේ පාර **function ගොඩක්** ලියනවා වෙනුවට **Photopea architecture** එකෙන් යමු.
+
+ඒ කියන්නේ අපි මුලින්ම මේ **Gradient Tool එක සම්පූර්ණයෙන්ම** ඉවර කරමු. ඊට පස්සේ ඒ වගේම quality එකෙන්:
+
+* 🎨 Gradient Tool
+* ✨ Effects Engine
+* 🖌 Brush Engine
+* 🧽 Healing Brush
+* ✂️ Crop Tool
+* 🖼 Layer Styles
+
+එකින් එක හදමු.
+
+මේ විදිහට ගියොත් අන්තිමට ඔයාට ලැබෙන්නේ **maintain කරන්න ලේසි, professional Canva/Photopea-style editor** එකක්.
