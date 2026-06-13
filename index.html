@@ -132,6 +132,16 @@
 
     <button onclick="applySinhalaFont()">Sinhala Font</button>
 
+     <hr>
+
+    <!-- FONT IMPORT -->
+    <label>Import Font</label>
+    <input type="file" id="fontUpload" accept=".ttf,.otf" hidden>
+
+    <button onclick="document.getElementById('fontUpload').click()">
+      Upload Font
+    </button>
+
     <hr>
 
     <!-- ================= TEXT EFFECTS ================= -->
@@ -183,24 +193,30 @@
 
     <button onclick="clearTextEffects()">Clear All Effects</button>
 
-    <hr>
+    
 
-    <!-- BACKGROUND -->
-    <label>Background Color</label>
-    <input type="color"
-      onchange="setBackgroundColor(this.value)">
-
-    <hr>
-
-    <!-- FONT IMPORT -->
-    <label>Import Font</label>
-    <input type="file" id="fontUpload" accept=".ttf,.otf" hidden>
-
-    <button onclick="document.getElementById('fontUpload').click()">
-      Upload Font
-    </button>
+   
 
   </div>
+
+<!-- ================= GRADIENT ================= -->
+
+  <div id="gradientEditor" class="panel hidden">
+    <h3>Gradient Editor</h3>
+    
+    <label>Color 1 (Start)</label>
+    <input type="color" id="gradColor1" value="#ff0000">
+    
+    <label>Color 2 (End)</label>
+    <input type="color" id="gradColor2" value="#0000ff">
+    
+    <br>
+    <button onclick="applyGradient()">Apply Gradient</button>
+    
+    <button onclick="applyFadeEffect()">Apply Fade Effect</button>
+</div>
+
+  
 
   <!-- ================= LAYERS PANEL ================= -->
   <div id="layers" class="panel">
@@ -315,22 +331,7 @@ Transparent Background
     <button onclick="ctxDelete()">🗑 Delete</button>
 </div>
 
-<!-- ================= GRADIENT ================= -->
 
-  <div id="gradientEditor" class="panel hidden">
-    <h3>Gradient Editor</h3>
-    
-    <label>Color 1 (Start)</label>
-    <input type="color" id="gradColor1" value="#ff0000">
-    
-    <label>Color 2 (End)</label>
-    <input type="color" id="gradColor2" value="#0000ff">
-    
-    <br>
-    <button onclick="applyGradient()">Apply Gradient</button>
-    
-    <button onclick="applyFadeEffect()">Apply Fade Effect</button>
-</div>
 
 <!-- ================= SCRIPTS ================= -->
 <script src="js/helpers.js"></script>
